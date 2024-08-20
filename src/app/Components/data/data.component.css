@@ -1,0 +1,13 @@
+/* Custom Styles for Dropdown Button */
+.dropdown-toggle::after {
+    display: none; /* Hide default dropdown arrow */
+  }
+  
+  .dropdown-menu {
+    border-radius: 0.25rem; /* Rounded corners */
+  }
+  
+  .dropdown-item:hover {
+    background-color: #e9ecef; /* Light grey background on hover */
+  }
+  

@@ -1,0 +1,131 @@
+/* Navbar Styles */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: #00274d; /* Dark blue background */
+    padding: 1rem;
+}
+.wiki{
+    font-weight: bold;
+    font-size:10px;
+    margin-left:5px;
+}
+
+.navbar .nav-link {
+    color: black; /* Black text */
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    text-transform: uppercase;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    background-color: transparent;
+    border-radius: 0.25rem;
+}
+
+.class {
+    margin-left: 10px;
+}
+
+.Main {
+    margin-left: 230px;
+}
+
+.offcanvas-header {
+    background-color: #f8f9fa; /* Adjust background color */
+}
+
+.offcanvas-body {
+    background-color: #fff; /* Adjust background color */
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: #ffcc00; /* Yellow color on hover or active link */
+    background-color: #004080; /* Slightly lighter blue background on hover */
+}
+
+.navbar .dropdown-menu {
+    background-color: #004080; /* Darker blue for dropdown */
+    border: none;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+    color: white;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #00274d; /* Dark blue on hover */
+}
+
+.dropdown-divider {
+    border-color: #ffcc00; /* Yellow color for divider */
+}
+
+.button {
+    margin-left: auto;
+}
+
+.But {
+    color: cadetblue;
+    border: none;
+    transition: background-color 0.3s ease; /* Added property for smoother transition */
+}
+
+.But:hover {
+    background-color: lightgreen;
+}
+
+.img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+/* Offcanvas Styles */
+.offcanvas {
+    width: 200px; /* Drawer width */
+}
+
+.offcanvas-body ul {
+    padding: 0; /* Remove default padding */
+    list-style: none; /* Remove bullets */
+}
+
+.offcanvas-body ul li {
+    padding: 10px 5px; /* Add padding for spacing */
+    text-align: center; /* Center align text */
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem;
+    }
+
+    .navbar .nav-link {
+        padding: 0.5rem 0.75rem;
+        text-align: center;
+    }
+
+    .navbar .dropdown-menu {
+        text-align: center;
+    }
+
+    .Main {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .button {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .But {
+        width: 100%;
+    }
+}

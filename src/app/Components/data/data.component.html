@@ -1,0 +1,33 @@
+<div class="container">
+    <nz-select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)" nzPlaceHolder="Select Data" style="width: 200px; margin-top: 10px;">
+      <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.ps"></nz-option>
+    </nz-select>
+  
+    <!-- Conditionally show nz-empty or table based on tableData length -->
+    <nz-empty *ngIf="tableData.length === 0 && selectedOption" nzDescription="No data available">
+    </nz-empty>
+    
+    <table *ngIf="tableData.length > 0" class="table mt-3">
+      <thead>
+        <tr>
+          <th>PS</th>
+          <th>Name</th>
+          <th>Phone Number</th>
+          <th>Identity Card Number</th>
+          <th>Address</th>
+          <th>House Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of tableData">
+          <td>{{ data.ps }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.phonenumber }}</td>
+          <td>{{ data.identitycard }}</td>
+          <td>{{ data.address }}</td>
+          <td>{{ data.house }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

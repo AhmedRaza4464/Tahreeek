@@ -1,0 +1,83 @@
+<!-- <div class="container mt-5">
+  <button class="btn btn-primary mb-4" (click)="addCard()">Add Card</button>
+  <div class="row">
+    <div class="col-md-6 mb-4" *ngFor="let card of cards; let i = index">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="card.image" class="img-fluid rounded-start" [alt]="card.altText">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ card.title }}</h5>
+              <p class="card-text">
+                Name: {{ card.name }}<br>
+                Father Name: {{ card.fatherName }}<br>
+                Identity Card: {{ card.identityCard }}<br>
+                Phone Number: {{ card.phoneNumber }}<br>
+                Address: {{ card.address }}<br>
+                Total Afraad: {{ card.totalAfraad }}
+              </p>
+              <p class="card-text"><small class="text-body-secondary">Last updated {{ card.lastUpdated }}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 mb-4" *ngFor="let card of cards; let i = index">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="card.image" class="img-fluid rounded-start" [alt]="card.altText">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ card.title }}</h5>
+              <p class="card-text">{{ card.text }}</p>
+              <p class="card-text"><small class="text-body-secondary">{{ card.lastUpdated }}</small></p>
+              <button class="btn btn-primary" (click)="editCard(i)">Edit</button>
+              <button class="btn btn-danger" (click)="deleteCard(i)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-success" (click)="addCard()">Add Card</button>
+
+  <!-- Add/Edit Card Form -->
+  <div *ngIf="isEditing || isAdding" class="card mt-4">
+    <div class="card-body">
+      <h5 *ngIf="isEditing">Edit Card</h5>
+      <h5 *ngIf="isAdding">Add New Card</h5>
+      <form (ngSubmit)="saveCard()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="currentCard.title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="text" class="form-label">Text</label>
+          <textarea class="form-control" id="text" [(ngModel)]="currentCard.text" name="text" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="image" [(ngModel)]="currentCard.image" name="image" required>
+        </div>
+        <div class="mb-3">
+          <label for="altText" class="form-label">Alt Text</label>
+          <input type="text" class="form-control" id="altText" [(ngModel)]="currentCard.altText" name="altText" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+

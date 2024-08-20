@@ -1,0 +1,20 @@
+.card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .card-text {
+    margin: 0.5rem 0;
+  }
+  
+  .card-text small {
+    color: gray;
+  }
+
+  
+  .button-gap {
+    margin-right: 10px; /* Adjust the value as needed */
+  }

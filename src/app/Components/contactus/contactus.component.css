@@ -1,0 +1,24 @@
+
+
+#contact-us {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+#contact-us h2 {
+    color: #343a40;
+}
+
+#contact-us .form-control {
+    border-radius: 0.25rem;
+}
+
+#contact-us .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+#contact-us .btn-primary:hover {
+    background-color: #0056b3;
+}

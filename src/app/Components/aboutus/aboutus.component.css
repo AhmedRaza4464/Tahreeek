@@ -1,0 +1,31 @@
+.AboutUs {
+
+    color:lightgreen;
+    text-align:center;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.AboutUs::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: orange;
+    bottom: -2px;
+    left: 0;
+    transition: width 0.3s ease;
+    max-width: 100%; /* Ensures the underline is limited to the text width */
+}
+
+
+.para{
+    font-weight: bold;
+    font-size: 10px;
+    color: black;
+}
+
+
+.head{
+    margin-top: 10px;
+}

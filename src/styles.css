@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+.footer {
+    margin-top: 12px;
+      background-color: #00274d; /* Dark blue background */
+      color: #ffffff; /* White text */
+      padding: 2rem 0;
+    }
