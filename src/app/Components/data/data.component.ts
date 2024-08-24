@@ -7,35 +7,60 @@ import { Component } from '@angular/core';
 })
 export class DataComponent {
   options: { ps: string; value: string }[] = [];
+  books: { number: number; label: string }[] = [];
   selectedOption: string | null = null;
-  tableData: { ps:number;name: string; phonenumber: number; identitycard: number; address: string; house: string; }[] = [];
+  selectedBook: number | null = null;
+  tableData: { ps: number; name: string; phonenumber: number; identitycard: number; address: string; house: string; }[] = [];
+  bookData: { number: number; details: string; }[] = [];
 
   ngOnInit() {
-    // Generate options from PS-94 to PS-125
-    for (let i = 94; i <= 125; i++) {
+    // Generate options from PS-92 to PS-98
+    for (let i = 92; i <= 98; i++) {
       this.options.push({ ps: `PS-${i}`, value: `PS-${i}` });
     }
   }
 
   onOptionChange(value: string): void {
     this.selectedOption = value;
-    const numberValue = parseInt(value.replace('PS-', ''), 10);
-  
-    // Generate sample data based on selected option
+    
+    // Clear existing data
+    this.tableData = [];
+    this.bookData = [];
+    
+    // Agar PS-94 selected hai tou specific book numbers dikhayein
+    if (value === 'PS-94') {
+        this.books = [];
+        for (let i = 415120101; i <= 415120908; i++) {
+            this.books.push({ number: i, label: `Book ${i}` });
+        }
+    } else {
+        // Kisi aur PS per koi books show nahi hogi
+        this.books = [];
+    }
+}
+
+
+  onBookChange(value: number): void {
+    this.selectedBook = value;
+
+    // Generate sample data based on selected book number
     this.tableData = Array.from({ length: 12 }, (_, index) => {
-      const rowNumber = numberValue + index; // Generate unique number for each row
+      const rowNumber = value + index;
       return {
-        ps: numberValue, // Assuming `ps` should be a number
-        name: `Person ${rowNumber}`, // Set a sample name for each entry
-        phonenumber: 3000000000 + rowNumber, // Example phone number
-        identitycard: 1000000000 + rowNumber, // Example identity card number
-        address: `Address ${rowNumber}`, // Example address
-        house: `House #${rowNumber}` // Example house number
+        ps: value,
+        name: `Person ${rowNumber}`,
+        phonenumber: 3000000000 + rowNumber,
+        identitycard: 1000000000 + rowNumber,
+        address: `Address ${rowNumber}`,
+        house: `House #${rowNumber}`
       };
     });
-  
-    // Log data to debug
-    console.log('Selected Option:', this.selectedOption);
-    console.log('Table Data:', this.tableData);
+
+    // Generate sample book details data
+    this.bookData = [
+      { number: value, details: `Details of Book ${value} - Part 1` },
+      { number: value, details: `Details of Book ${value} - Part 2` },
+      { number: value, details: `Details of Book ${value} - Part 3` }
+    ];
   }
 }

@@ -1,33 +1,53 @@
 <div class="container">
-    <nz-select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)" nzPlaceHolder="Select Data" style="width: 200px; margin-top: 10px;">
-      <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.ps"></nz-option>
-    </nz-select>
+  <nz-select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)" nzPlaceHolder="Select PS" style="width: 200px; margin-top: 10px;">
+    <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.ps"></nz-option>
+  </nz-select>
   
-    <!-- Conditionally show nz-empty or table based on tableData length -->
-    <nz-empty *ngIf="tableData.length === 0 && selectedOption" nzDescription="No data available">
-    </nz-empty>
-    
-    <table *ngIf="tableData.length > 0" class="table mt-3">
-      <thead>
-        <tr>
-          <th>PS</th>
-          <th>Name</th>
-          <th>Phone Number</th>
-          <th>Identity Card Number</th>
-          <th>Address</th>
-          <th>House Number</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of tableData">
-          <td>{{ data.ps }}</td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.phonenumber }}</td>
-          <td>{{ data.identitycard }}</td>
-          <td>{{ data.address }}</td>
-          <td>{{ data.house }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <nz-select *ngIf="books.length > 0" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
+    <nz-option *ngFor="let book of books" [nzValue]="book.number" [nzLabel]="book.label"></nz-option>
+  </nz-select>
   
+  <nz-empty *ngIf="books.length === 0 && selectedOption" nzDescription="No books available for this PS"></nz-empty>
+  
+  <!-- This table will be hidden when a book is selected -->
+  <table *ngIf="books.length > 0 && !selectedBook" class="table mt-3">
+    <thead>
+      <tr>
+        <th>Book Number</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books" (click)="onBookChange(book.number)">
+        <td>{{ book.number }}</td>
+        <td>{{ book.label }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <nz-empty *ngIf="tableData.length === 0 && selectedBook" nzDescription="No data available for this book"></nz-empty>
+  
+  <!-- This table will show only when a book is selected -->
+  <table *ngIf="tableData.length > 0 && selectedBook" class="table mt-3">
+    <thead>
+      <tr>
+        <th>PS</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Identity Card Number</th>
+        <th>Address</th>
+        <th>House Number</th>hh
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of tableData">
+        <td>{{ data.ps }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.phonenumber }}</td>
+        <td>{{ data.identitycard }}</td>
+        <td>{{ data.address }}</td>
+        <td>{{ data.house }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

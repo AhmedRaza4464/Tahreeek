@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./contactus.component.css']
 })
 export class ContactusComponent {
+  
   contact = {
     name: '',
     district: '',
