@@ -4,14 +4,13 @@
   height: 400px;
   overflow: hidden;
 }
+
 .carousel-item img {
   width: 100%;
-  margin-top: 10px;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the entire area */
+  object-position: center; /* Center the image */
 }
-
 
 .learn-more-btn {
   margin-top: auto;
@@ -19,6 +18,11 @@
 }
 
 /* Cards */
+
+.carrds{
+  margin-top:40px;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -62,8 +66,7 @@
 @media (min-width: 769px) {
   .carousel-item img {
     max-height: 600px; /* Increased height for larger screens */
-    width: 100%; /* Full width for larger screens */
-    object-fit: contain; /* Ensure image is fully visible */
+    object-fit: cover; /* Maintain image cover for larger screens */
   }
 
   .card-img-top {

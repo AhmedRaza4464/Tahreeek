@@ -1,72 +1,57 @@
 <div class="container">
 
-<!-- Cntact Form -->
-<div class="row">
+  <!-- Contact Form -->
+  <div class="row">
     <div class="col-12">
-
-<div class="row">
-
-
-        <section id="contact-us" class="container my-5">
-            <h2 class="text-center mb-4">Contact Us</h2>
-            <div class="row">
-              <div class="col-md-10">
-                <h4>Get in Touch</h4>
-                <p>If you have any questions, please feel free to contact us using the form below.</p>
-                <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-                  <div class="mb-3">
-                    <label for="name" class="form-label ms-3"> Name           
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" id="name" [(ngModel)]="contact.name" name="name" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="district" class="form-label ms-3">District Level  
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" id="district" [(ngModel)]="contact.district" name="district" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="ps" class="form-label ms-3">PS              
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" id="ps" [(ngModel)]="contact.ps" name="ps" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="uc" class="form-label ms-3">UC              
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" id="uc" [(ngModel)]="contact.uc" name="uc" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="na" class="form-label ms-3">NA              
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <input type="email" class="form-control" id="na" [(ngModel)]="contact.na" name="na" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="message" class="form-label ms-3">Message         
-                      <span class="fw-bold text-danger">*</span>
-                    </label>
-                    <textarea class="form-control" id="message" [(ngModel)]="contact.message" name="message" rows="4" required></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+      <section id="contact-us" class="container my-5">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <div class="row">
+          <div class="col-md-10">
+            <h4>Get in Touch</h4>
+            <p>If you have any questions, please feel free to contact us using the form below.</p>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label ms-3">Name
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" id="name" formControlName="name" required>
               </div>
-            </div>
-          </section>
-
-
+              <div class="mb-3">
+                <label for="district" class="form-label ms-3">District Level
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" id="district" formControlName="district" required>
+              </div>
+              <div class="mb-3">
+                <label for="ps" class="form-label ms-3">PS
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" id="ps" formControlName="ps" required>
+              </div>
+              <div class="mb-3">
+                <label for="uc" class="form-label ms-3">UC
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" id="uc" formControlName="uc" required>
+              </div>
+              <div class="mb-3">
+                <label for="na" class="form-label ms-3">NA
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <input type="email" class="form-control" id="na" formControlName="na" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label ms-3">Message
+                  <span class="fw-bold text-danger">*</span>
+                </label>
+                <textarea class="form-control" id="message" formControlName="message" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
-
-
-
-
-    </div>
-</div>
-<!-- Cntact Form -->
-
-
-
-
+  </div>
+  <!-- Contact Form -->
 </div>

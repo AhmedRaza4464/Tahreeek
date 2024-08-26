@@ -41,7 +41,6 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,
     RouterModule,
     CommonModule,
     ReactiveFormsModule,

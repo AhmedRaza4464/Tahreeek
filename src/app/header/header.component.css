@@ -31,12 +31,9 @@
 }
 
 .offcanvas-header {
-    background-color: #f8f9fa; /* Adjust background color */
+    background-color: #f8f9fa; 
 }
 
-.offcanvas-body {
-    background-color: #fff; /* Adjust background color */
-}
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {

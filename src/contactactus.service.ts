@@ -2,46 +2,55 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
-interface ContactUs {
-  id?: number;
-  name: string;
-  districtLevel: string;
-  ps: string;
-  uc: string;
-  na: string;
-  message: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactUsService {
-  private apiUrl = 'https://localhost:7235/api/ContactUs'; // Backend API URL
+
+  apiUrl = 'https://localhost:7126/api/ContactUs'; // Backend API URL
 
   constructor(private http: HttpClient) {}
 
-  getContacts(): Observable<ContactUs[]> {
-    return this.http.get<ContactUs[]>(this.apiUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
+  // Get all contacts
+  // getContacts(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.apiUrl).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  // Create a new contact
+  createContact(contact: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl,contact)
+      
   }
 
-  createContact(contact: ContactUs): Observable<ContactUs> {
-    return this.http.post<ContactUs>(this.apiUrl, contact)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  // Update an existing contact
+  // updateContact(id: number, contact: any): Observable<void> {
+  //   return this.http.put<void>(`${this.apiUrl}/${id}`, contact).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  // Delete a contact
+  // deleteContact(id: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
 
   // Error handling
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(`Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError('Something went wrong; please try again later.');
-  }
+  // private handleError(error: HttpErrorResponse): Observable<never> {
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Client-side or network error
+  //     console.error('An error occurred:', error.error.message);
+  //   } else {
+  //     // Backend error
+  //     console.error(`Backend returned code ${error.status}, ` +
+  //       `body was: ${error.error}`);
+  //   }
+  //   // Return a user-facing error message
+  //   return throwError('Something went wrong; please try again later.');
+  // }
 }
