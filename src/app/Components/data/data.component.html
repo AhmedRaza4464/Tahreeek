@@ -1,19 +1,22 @@
 <div class="container">
+  <!-- PS Select Dropdown -->
   <nz-select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)" nzPlaceHolder="Select PS" style="width: 200px; margin-top: 10px;">
     <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.ps"></nz-option>
   </nz-select>
   
-  <!-- <nz-select *ngIf="books.length > 0" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
+  <!-- Book Select Dropdown -->
+  <nz-select *ngIf="books.length > 0 && !selectedBook" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
     <nz-option *ngFor="let book of filteredBooks" [nzValue]="book.number" [nzLabel]="book.label"></nz-option>
-  </nz-select> -->
+  </nz-select>
   
-  <nz-empty *ngIf="books.length === 0 && selectedOption" nzDescription="No books available for this PS"></nz-empty>
+  <!-- Empty State for No Books Available -->
+  <nz-empty *ngIf="books.length === 0 && selectedOption && !selectedBook" nzDescription="No books available for this PS"></nz-empty>
   
-  <!-- Search bar -->
-  <!-- <input *ngIf="books.length > 0 && !selectedBook" [(ngModel)]="searchQuery" (ngModelChange)="filterBooks()" placeholder="Search by Book Number" class="form-control mt-3" style="width: 200px;" /> -->
+  <!-- Search Bar for Books -->
+  <input *ngIf="books.length > 0 && !selectedBook" [(ngModel)]="searchQuery" (ngModelChange)="filterBooks()" placeholder="Search by Book Number" class="form-control mt-3" style="width: 200px;" />
 
-  <!-- This table will be hidden when a book is selected -->
-  <table *ngIf="filteredBooks.length > 0" class="table mt-3">
+  <!-- Table for Filtered Books -->
+  <table *ngIf="filteredBooks.length > 0 && !selectedBook" class="table mt-3">
     <thead>
       <tr>
         <th>Book Number</th>
@@ -32,24 +35,14 @@
     </tbody>
   </table>
   
-  <!-- Display selected book details -->
-  <div *ngIf="selectedBook">
-    <h3>Book Details</h3>
-    <p><strong>Book Number:</strong> {{ selectedBook.number }}</p>
-    <p><strong>Details:</strong> {{ selectedBook.label }}</p>
-    <p><strong>PDF:</strong> <a [href]="selectedBook.url" target="_blank">Open PDF</a></p>
-  </div>
+  <!-- Empty State for No Books Matching Search -->
+  <nz-empty *ngIf="filteredBooks.length === 0 && selectedOption && !selectedBook" nzDescription="No books match the search criteria"></nz-empty>
   
-  
-  <nz-empty *ngIf="filteredBooks.length === 0 && selectedBook" nzDescription="No data available for this book"></nz-empty>
-  
-  <!-- This table will show only when a book is selected -->
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;">
+  <!-- Search Bar for Table Data -->
+  <input *ngIf="selectedBook" type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;">
 
-
-  
-  <!-- Display filtered table data -->
-  <table *ngIf="filteredTableData().length > 0" class="table mt-3">
+  <!-- Table for Book Data -->
+  <table *ngIf="filteredTableData().length > 0 && selectedBook" class="table mt-3">
     <thead>
       <tr>
         <th>PS</th>
