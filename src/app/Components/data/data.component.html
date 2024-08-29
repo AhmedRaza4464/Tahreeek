@@ -5,7 +5,7 @@
   </nz-select>
   
   <!-- Book Select Dropdown -->
-  <nz-select *ngIf="books.length > 0 && !selectedBook" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
+  <nz-select *ngIf="filteredBooks.length > 0 && !selectedBook" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
     <nz-option *ngFor="let book of filteredBooks" [nzValue]="book.number" [nzLabel]="book.label"></nz-option>
   </nz-select>
   
@@ -13,7 +13,7 @@
   <nz-empty *ngIf="books.length === 0 && selectedOption && !selectedBook" nzDescription="No books available for this PS"></nz-empty>
   
   <!-- Search Bar for Books -->
-  <input *ngIf="books.length > 0 && !selectedBook" [(ngModel)]="searchQuery" (ngModelChange)="filterBooks()" placeholder="Search by Book Number" class="form-control mt-3" style="width: 200px;" />
+  <input *ngIf="filteredBooks.length > 0 && !selectedBook" [(ngModel)]="searchQuery" (ngModelChange)="filterBooks()" placeholder="Search by Book Number" class="form-control mt-3" style="width: 200px;" />
 
   <!-- Table for Filtered Books -->
   <table *ngIf="filteredBooks.length > 0 && !selectedBook" class="table mt-3">
@@ -28,9 +28,7 @@
       <tr *ngFor="let book of filteredBooks" (click)="showBookData(book)">
         <td>{{ book.number }}</td>
         <td>{{ book.label }}</td>
-        <td>
-          <a href="javascript:void(0);" (click)="showBookData(book); $event.stopPropagation();">View PDF</a>
-        </td>
+        <td><a [href]="book.pdfUrl" target="_blank">View PDF</a></td>
       </tr>
     </tbody>
   </table>
@@ -42,7 +40,7 @@
   <input *ngIf="selectedBook" type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;">
 
   <!-- Table for Book Data -->
-  <table *ngIf="filteredTableData().length > 0 && selectedBook" class="table mt-3">
+  <table *ngIf="filteredTableData().length > 0 && selectedBook" class="table mt-3" id="test">
     <thead>
       <tr>
         <th>PS</th>
@@ -52,6 +50,7 @@
         <th>Identity Card Number</th>
         <th>Address</th>
         <th>House Number</th>
+        <th>PDF</th>
       </tr>
     </thead>
     <tbody>
@@ -63,7 +62,14 @@
         <td>{{ data.identitycard }}</td>
         <td>{{ data.address }}</td>
         <td>{{ data.house }}</td>
+        <td><a [href]="data.pdfUrl" target="_blank">View PDF</a></td>  <!-- PDF link -->
       </tr>
     </tbody>
   </table>
+  
+
+  <!-- Empty State for No Data Matching Search -->
+  <nz-empty *ngIf="filteredTableData().length === 0 && selectedBook" nzDescription="No data matches the search criteria"></nz-empty>
 </div>
+
+<button class="btn btn-primary" (click)="downloadpdf()">Download Pdf Data</button>
