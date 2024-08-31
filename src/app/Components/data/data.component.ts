@@ -16,6 +16,7 @@ export class DataComponent implements OnInit {
   searchTerm: string = '';
   selectedOption: string | null = null;
   selectedBook: number | null = null;
+  names: string[] = [];
 
   ngOnInit() {
     // Generate options from PS-92 to PS-98
@@ -47,10 +48,10 @@ export class DataComponent implements OnInit {
     this.selectedBook = bookNumber;
 
     // Generate sample data based on selected book number
-    this.tableData = Array.from({ length: 3 }, (_, index) => ({
+    this.tableData = Array.from({ length: 10 }, (_, index) => ({
       ps: this.selectedOption,  // Store the selected PS option
       booknumber: bookNumber,
-      name: `Ahmed Raza ${index + 1}`,
+      name: this.names[index % this.names.length] + ` ${index + 1}`,
       phonenumber: 3000000000 + index,
       identitycard: 1000000000 + index,
       address: `Address ${index + 1}`,
@@ -83,16 +84,23 @@ export class DataComponent implements OnInit {
     );
   }
 
+  onRowClick(data: any): void {
+    // Optionally handle row click events here
+    console.log('Row clicked:', data);
+  }
+
   showBookData(book: any): void {
     this.onBookChange(book.number);
   }
 
+// Tabel Pdf //
 
   downloadpdf(){
     var doc = new jsPDF();
     autoTable(doc,{html:"#test",theme:'grid'});
     doc.save("testpdf");
   }
+// Tabel Pdf //
 
 
 }
