@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -104,8 +103,20 @@ export class DataComponent implements OnInit {
     doc.save("testpdf");
   }
 
-  downloadexcel(){
-    
+  downloadexcel() {
+    // Get the table element
+    const table = document.getElementById('test');
+    if (table) {
+      // Convert HTML table to worksheet
+      const ws = XLSX.utils.table_to_sheet(table);
+  
+      // Create a new workbook and add the worksheet
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+      // Write the workbook and trigger a download
+      XLSX.writeFile(wb, 'test.xlsx');
+    }
   }
 // Tabel Pdf //
 
