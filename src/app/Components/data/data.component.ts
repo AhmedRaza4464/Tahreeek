@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-data',
@@ -99,6 +102,10 @@ export class DataComponent implements OnInit {
     var doc = new jsPDF();
     autoTable(doc,{html:"#test",theme:'grid'});
     doc.save("testpdf");
+  }
+
+  downloadexcel(){
+    
   }
 // Tabel Pdf //
 
