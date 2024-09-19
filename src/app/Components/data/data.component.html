@@ -37,10 +37,9 @@
   <nz-empty *ngIf="filteredBooks.length === 0 && selectedOption && !selectedBook" nzDescription="No books match the search criteria"></nz-empty>
   
   <!-- Search Bar for Table Data -->
-  <input *ngIf="selectedBook" type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;">
+  <input *ngIf="selectedBook" type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;" />
 
   <!-- Table for Book Data -->
-   
   <table *ngIf="filteredTableData().length > 0 && selectedBook" class="table mt-3" id="test">
     <thead>
       <tr>
@@ -63,20 +62,17 @@
         <td>{{ data.identitycard }}</td>
         <td>{{ data.address }}</td>
         <td>{{ data.house }}</td>
-        <td><a [href]="data.pdfUrl" target="_blank">View PDF</a></td> <!-- PDF link -->
+        <td><a href="assets/pdf94/415120101.pdf" target="_blank">View PDF</a>
+        </td> <!-- PDF link -->
       </tr>
     </tbody>
   </table>
   
-  
-
-  <!-- Table for Book Data -->
-
   <!-- Empty State for No Data Matching Search -->
   <nz-empty *ngIf="filteredTableData().length === 0 && selectedBook" nzDescription="No data matches the search criteria"></nz-empty>
 </div>
 
+<!-- Download buttons for PDF and Excel -->
 <button class="btn btn-primary" style="margin-left: 40%; margin-top: 10px;" (click)="downloadpdf()">Download Pdf Data</button>
  
 <button class="btn btn-primary" style="margin-left: 40%; margin-top: 10px;" (click)="downloadexcel()">Download Excel Data</button>
-

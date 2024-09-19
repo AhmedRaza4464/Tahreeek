@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { BookDataService } from 'src/book-data.service';
 import * as XLSX from 'xlsx';
-
 
 @Component({
   selector: 'app-data',
@@ -10,6 +10,10 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./data.component.css']
 })
 export class DataComponent implements OnInit {
+
+  constructor(private bookDataService: BookDataService) {}
+
+
   options: { ps: string; value: string }[] = [];
   books: { number: number; label: string; pdfUrl: string }[] = [];
   filteredBooks: { number: number; label: string; pdfUrl: string }[] = [];
@@ -18,7 +22,7 @@ export class DataComponent implements OnInit {
   searchTerm: string = '';
   selectedOption: string | null = null;
   selectedBook: number | null = null;
-  names: string[] = [];
+  names: string[] = ['Person'];  // Add default names
 
   ngOnInit() {
     // Generate options from PS-92 to PS-98
@@ -36,31 +40,40 @@ export class DataComponent implements OnInit {
     this.selectedBook = null;
     this.searchQuery = '';
 
+    // Load books for PS-94
     if (value === 'PS-94') {
       for (let i = 415120101; i <= 415120908; i++) {
-        this.books.push({ number: i, label: `Book ${i}`, pdfUrl: `path-to-pdf${i}.pdf` });
+        this.books.push({
+          number: i,
+          label: `Book ${i}`,
+          pdfUrl: `assets/pdf94/${i}.pdf`  // Ensure this path is correct
+        });
       }
     }
 
-    this.filteredBooks = [...this.books];
+    this.filteredBooks = [...this.books];  // Copy books to filteredBooks
   }
-
 
   onBookChange(bookNumber: number): void {
     this.selectedBook = bookNumber;
-
-    // Generate sample data based on selected book number
-    this.tableData = Array.from({ length: 10 }, (_, index) => ({
-      ps: this.selectedOption,  // Store the selected PS option
-      booknumber: bookNumber,
-      name: this.names[index % this.names.length] + ` ${index + 1}`,
-      phonenumber: 3000000000 + index,
-      identitycard: 1000000000 + index,
-      address: `Address ${index + 1}`,
-      house: `House #${index + 1}`,
-      pdfUrl: `path-to-pdf${bookNumber}.pdf`  // Dynamically assign PDF URL for each book number
-    }));
+  
+    // Fetch book data from the service
+    this.bookDataService.getBookData(bookNumber).subscribe((realData) => {
+      if (realData) {
+        this.tableData = Array.from({ length: 10 }, (_, index) => ({
+          ps: this.selectedOption,
+          booknumber: realData.number,
+          name: `Person ${index + 1}`,
+          phonenumber: 3000000000 + index,
+          identitycard: 1000000000 + index,
+          address: `Address ${index + 1}`,
+          house: `House #${index + 1}`,
+          pdfUrl: realData.pdfUrl
+        }));
+      }
+    });
   }
+  
 
   filterBooks(): void {
     this.filteredBooks = this.books.filter(book =>
@@ -73,9 +86,9 @@ export class DataComponent implements OnInit {
     if (!this.searchTerm) {
       return this.tableData;
     }
-
+  
     const searchTermLower = this.searchTerm.toLowerCase();
-
+  
     return this.tableData.filter(data =>
       data.booknumber.toString().includes(searchTermLower) ||
       data.name.toLowerCase().includes(searchTermLower) ||
@@ -85,9 +98,9 @@ export class DataComponent implements OnInit {
       data.house.toLowerCase().includes(searchTermLower)
     );
   }
+  
 
   onRowClick(data: any): void {
-    // Optionally handle row click events here
     console.log('Row clicked:', data);
   }
 
@@ -95,30 +108,21 @@ export class DataComponent implements OnInit {
     this.onBookChange(book.number);
   }
 
-// Tabel Pdf //
-
-  downloadpdf(){
-    var doc = new jsPDF();
-    autoTable(doc,{html:"#test",theme:'grid'});
-    doc.save("testpdf");
+  // Download PDF
+  downloadpdf(): void {
+    const doc = new jsPDF();
+    autoTable(doc, { html: "#test", theme: 'grid' });
+    doc.save("testpdf.pdf");
   }
 
-  downloadexcel() {
-    // Get the table element
+  // Download Excel
+  downloadexcel(): void {
     const table = document.getElementById('test');
     if (table) {
-      // Convert HTML table to worksheet
       const ws = XLSX.utils.table_to_sheet(table);
-  
-      // Create a new workbook and add the worksheet
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  
-      // Write the workbook and trigger a download
       XLSX.writeFile(wb, 'test.xlsx');
     }
   }
-// Tabel Pdf //
-
-
 }

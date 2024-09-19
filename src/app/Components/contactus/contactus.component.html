@@ -46,7 +46,9 @@
                 </label>
                 <textarea class="form-control" id="message" formControlName="message" rows="4" required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Send Message</button>
+              <!-- <button type="submit" class="btn btn-primary" (click)="onSubmit()">Send Message</button> -->
+              <button  class="btn btn-outline-success" [disabled]="isSubmitting" (click)="onSubmit()">Send Message</button>
+
             </form>
           </div>
         </div>
