@@ -30,6 +30,46 @@ export class CandidateComponent {
     }
   ];
 
+  candidates = [
+    {
+      name: 'John Doe',
+      year: 2018,
+      district: 'District 1',
+      area: 'Area 1',
+      ps: 'PS 94',
+      uc: 'UC 1',
+      na: 'NA 1',
+      image: 'assets/sample-image1.jpg',
+      altText: 'Image 1',
+      lastUpdated: '3 mins ago'
+    },
+    {
+      name: 'Jane Doe',
+      year: 2020,
+      district: 'District 2',
+      area: 'Area 2',
+      ps: 'PS 125',
+      uc: 'UC 2',
+      na: 'NA 2',
+      image: 'assets/sample-image2.jpg',
+      altText: 'Image 2',
+      lastUpdated: '5 mins ago'
+    },
+    {
+      name: 'Ahmed Khan',
+      year: 2024,
+      district: 'District 3',
+      area: 'Area 3',
+      ps: 'PS 123',
+      uc: 'UC 3',
+      na: 'NA 3',
+      image: 'assets/sample-image3.jpg',
+      altText: 'Image 3',
+      lastUpdated: '10 mins ago'
+    }
+  ];
+  
+
   isEditing = false;
   editingIndex: number | null = null;
 
@@ -57,7 +97,7 @@ export class CandidateComponent {
       image: '',
       altText: '',
       lastUpdated: 'Just now'
-    };
+    }; 
     this.openModal();
   }
 

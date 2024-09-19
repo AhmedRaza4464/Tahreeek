@@ -1,19 +1,22 @@
 <div class="container mt-5">
+  <h3 class="mb-4">Election Candidates (2018 - 2024)</h3>
   <div class="row">
-    <div class="col-md-6 mb-4" *ngFor="let card of cards; let i = index">
+    <div class="col-md-6 mb-4" *ngFor="let candidate of candidates; let i = index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img [src]="card.image" class="img-fluid rounded-start" [alt]="card.altText">
+            <img [src]="candidate.image" class="img-fluid rounded-start" [alt]="candidate.altText">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ card.name }}</h5>
-              <p class="card-text">District: {{ card.district }}</p>
-              <p class="card-text">Area: {{ card.area }}</p>
-              <p class="card-text">UC: {{ card.uc }}</p>
-              <p class="card-text">NA: {{ card.na }}</p>
-              <p class="card-text"><small class="text-body-secondary">{{ card.lastUpdated }}</small></p>
+              <h5 class="card-title">{{ candidate.name }}</h5>
+              <p class="card-text">Year: {{ candidate.year }}</p>
+              <p class="card-text">District: {{ candidate.district }}</p>
+              <p class="card-text">Area: {{ candidate.area }}</p>
+              <p class="card-text">PS: {{ candidate.ps }}</p>
+              <p class="card-text">UC: {{ candidate.uc }}</p>
+              <p class="card-text">NA: {{ candidate.na }}</p>
+              <p class="card-text"><small class="text-body-secondary">{{ candidate.lastUpdated }}</small></p>
               <button class="btn btn-primary" (click)="editCard(i)">Edit</button>
               <button class="btn btn-danger" (click)="deleteCard(i)">Delete</button>
             </div>
@@ -22,7 +25,7 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-success" (click)="addCard()">Add Card</button>
+  <button class="btn btn-success" (click)="addCard()">Add Candidate</button>
 
   <!-- Add/Edit Card Modal -->
   <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
