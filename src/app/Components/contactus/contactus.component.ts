@@ -13,7 +13,7 @@ export class ContactusComponent implements OnInit {
   contacts: any[] = [];
   selectedContact: any = null;
   isSubmitting = false;
-
+  psOptions: number[] = [92, 93, 94, 95, 96, 97, 98];
 
   constructor(private fb: FormBuilder, private contactUsService: ContactUsService) {}
 

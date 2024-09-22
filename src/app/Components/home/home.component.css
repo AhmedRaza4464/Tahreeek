@@ -1,83 +1,159 @@
-/* Carousel */
+Carousel
 .carousel {
   width: 100%;
-  height: 400px;
+  height: 500px; /* Default height for larger screens */
   overflow: hidden;
 }
 
 .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure image covers the entire area */
-  object-position: center; /* Center the image */
-}
-
-.learn-more-btn {
-  margin-top: auto;
-  color: #007bff; 
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Cards */
-
-.carrds{
-  margin-top:40px;
+.cards-container {
+  margin-top: 60px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
+  border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  height: 100%;
 }
 
 .card-img-top {
-  display: block;
-  height: 100px;
+  height: 250px;
   object-fit: cover;
-  width: 100%;
+  border-radius: 12px 12px 0 0;
 }
 
-/* Hover Effect */
+.card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .card:hover {
-  background-color: lightpink;
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #f8f9fa;
 }
 
-/* Responsive Adjustments */
-/* Responsive Adjustments for Mobile */
-@media (max-width: 768px) {
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile Adjustments (General) */
+@media (max-width: 576px) {
+  .carousel {
+    height: 250px; /* Adjusted height for small mobile screens */
+  }
+
   .carousel-item img {
-    max-height: 400px;
-    width: 100%; /* Full width on smaller screens */
-    object-fit: contain; /* Ensure image is fully visible */
+    object-fit: contain; /* Ensure images are fully visible on small screens */
+  }
+
+  .card-img-top {
+    height: 150px; /* Smaller height for mobile */
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-body {
+    padding: 15px;
   }
 
   .card {
-    margin-bottom: 20px;
-    height: auto;
+    margin-bottom: 15px; /* Add margin for spacing between cards */
   }
 
-  .card-img-top {
-    height: 350px;
+  .cards-container {
+    padding: 10px; /* Add padding around the cards on small screens */
   }
 }
 
-/* Adjustments for Larger Screens */
-@media (min-width: 769px) {
+/* Tablets (small screens) */
+@media (max-width: 768px) {
+  .carousel {
+    height: 300px; /* Slightly larger height for tablets */
+  }
+
   .carousel-item img {
-    max-height: 600px; /* Increased height for larger screens */
-    object-fit: cover; /* Maintain image cover for larger screens */
+    object-fit: contain;
   }
 
   .card-img-top {
-    height: 300px; /* Adjust card image height for larger screens */
+    height: 180px; /* Medium height for tablets */
+  }
+
+  .cards-container {
+    padding: 15px; /* Adjust padding for tablet-sized screens */
   }
 }
 
+/* Laptops (medium screens) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .carousel {
+    height: 400px; /* Adjusted height for medium screens */
+  }
 
-  
+  .card-img-top {
+    height: 220px;
+  }
 
+  .carousel-item img {
+    object-fit: cover; /* Full cover for medium screens */
+  }
+}
 
+/* Larger Screens */
+@media (min-width: 992px) {
+  .carousel {
+    height: 500px; /* Default height for large screens */
+  }
 
-  
+  .card-img-top {
+    height: 250px; /* Larger height for big screens */
+  }
 
+  .carousel-item img {
+    max-height: 600px;
+    object-fit: cover; /* Maintain cover for large screens */
+  }
+}
+
+/* Extra-Large Screens */
+@media (min-width: 1200px) {
+  .carousel {
+    height: 600px; /* Increased height for extra-large screens */
+  }
+
+  .card-img-top {
+    height: 300px; /* Extra height for very large screens */
+  }
+
+  .carousel-item img {
+    max-height: 700px;
+    object-fit: cover;
+  }
+}

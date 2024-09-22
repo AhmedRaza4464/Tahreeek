@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./data.component.css']
 })
 export class DataComponent implements OnInit {
+  pdfSrc: string = 'assets/pdf94/415120101.pdf';
 
   constructor(private bookDataService: BookDataService) {}
 
@@ -59,18 +60,25 @@ export class DataComponent implements OnInit {
   
     // Fetch book data from the service
     this.bookDataService.getBookData(bookNumber).subscribe((realData) => {
+      console.log('Fetched data:', realData);  // Log fetched data for debugging
+  
       if (realData) {
-        this.tableData = Array.from({ length: 10 }, (_, index) => ({
+        // Map the real data to the table structure
+        this.tableData = realData.map((data: any) => ({
           ps: this.selectedOption,
-          booknumber: realData.number,
-          name: `Person ${index + 1}`,
-          phonenumber: 3000000000 + index,
-          identitycard: 1000000000 + index,
-          address: `Address ${index + 1}`,
-          house: `House #${index + 1}`,
-          pdfUrl: realData.pdfUrl
+          booknumber: data.number,          
+          name: data.name,                  
+          phonenumber: data.phonenumber,    
+          identitycard: data.identitycard,  
+          address: data.address,            
+          house: data.house,                
+          pdfUrl: data.pdfUrl               
         }));
+      } else {
+        console.error('No data returned for this book number');
       }
+    }, (error) => {
+      console.error('Error fetching data:', error);
     });
   }
   

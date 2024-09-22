@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -5,7 +6,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class BookDataService {
+  apiUrl: any;
 
+  constructor(private http: HttpClient) {}
   // Dummy book data for example purposes, you can replace this with an API call
   private books = [
     { number: 415120101, label: 'Book 1', pdfUrl: 'assets/pdf94/415120101.pdf' },
@@ -14,7 +17,6 @@ export class BookDataService {
     // Add more books as needed...
   ];
 
-  constructor() { }
 
   // Function to get book data
   getBooks(): Observable<{ number: number, label: string, pdfUrl: string }[]> {
@@ -23,8 +25,7 @@ export class BookDataService {
   }
 
   // Optionally, get a specific book's data
-  getBookData(bookNumber: number): Observable<{ number: number, label: string, pdfUrl: string } | undefined> {
-    const book = this.books.find(b => b.number === bookNumber);
-    return of(book);
+  getBookData(bookNumber: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/books/${bookNumber}`);
   }
 }
