@@ -26,8 +26,12 @@
                 <label for="ps" class="form-label ms-3">PS
                   <span class="fw-bold text-danger">*</span>
                 </label>
-                <input type="text" class="form-control" id="ps" formControlName="ps" required>
+                <select class="form-control" id="ps" formControlName="ps" required>
+                  <option value="">Select PS</option>
+                  <option *ngFor="let ps of psOptions" [value]="ps">{{ ps }}</option>
+                </select>
               </div>
+              
               <div class="mb-3">
                 <label for="uc" class="form-label ms-3">UC
                   <span class="fw-bold text-danger">*</span>
@@ -46,7 +50,9 @@
                 </label>
                 <textarea class="form-control" id="message" formControlName="message" rows="4" required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Send Message</button>
+              <!-- <button type="submit" class="btn btn-primary" (click)="onSubmit()">Send Message</button> -->
+              <button  class="btn btn-outline-success" [disabled]="isSubmitting" (click)="onSubmit()">Send Message</button>
+
             </form>
           </div>
         </div>

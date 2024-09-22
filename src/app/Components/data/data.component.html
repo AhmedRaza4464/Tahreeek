@@ -1,11 +1,20 @@
 <div class="container">
   <!-- PS Select Dropdown -->
-  <nz-select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)" nzPlaceHolder="Select PS" style="width: 200px; margin-top: 10px;">
+  <nz-select 
+    [(ngModel)]="selectedOption" 
+    (ngModelChange)="onOptionChange($event)" 
+    nzPlaceHolder="Select PS" 
+    style="width: 200px; margin-top: 10px;">
     <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.ps"></nz-option>
   </nz-select>
   
   <!-- Book Select Dropdown -->
-  <nz-select *ngIf="filteredBooks.length > 0 && !selectedBook" [(ngModel)]="selectedBook" (ngModelChange)="onBookChange($event)" nzPlaceHolder="Select Book" style="width: 200px; margin-top: 10px;">
+  <nz-select 
+    *ngIf="filteredBooks.length > 0 && !selectedBook" 
+    [(ngModel)]="selectedBook" 
+    (ngModelChange)="onBookChange($event)" 
+    nzPlaceHolder="Select Book" 
+    style="width: 200px; margin-top: 10px;">
     <nz-option *ngFor="let book of filteredBooks" [nzValue]="book.number" [nzLabel]="book.label"></nz-option>
   </nz-select>
   
@@ -13,7 +22,13 @@
   <nz-empty *ngIf="books.length === 0 && selectedOption && !selectedBook" nzDescription="No books available for this PS"></nz-empty>
   
   <!-- Search Bar for Books -->
-  <input *ngIf="filteredBooks.length > 0 && !selectedBook" [(ngModel)]="searchQuery" (ngModelChange)="filterBooks()" placeholder="Search by Book Number" class="form-control mt-3" style="width: 200px;" />
+  <input 
+    *ngIf="filteredBooks.length > 0 && !selectedBook" 
+    [(ngModel)]="searchQuery" 
+    (ngModelChange)="filterBooks()" 
+    placeholder="Search by Book Number" 
+    class="form-control mt-3" 
+    style="width: 200px;" />
 
   <!-- Table for Filtered Books -->
   <table *ngIf="filteredBooks.length > 0 && !selectedBook" class="table mt-3">
@@ -37,7 +52,13 @@
   <nz-empty *ngIf="filteredBooks.length === 0 && selectedOption && !selectedBook" nzDescription="No books match the search criteria"></nz-empty>
   
   <!-- Search Bar for Table Data -->
-  <input *ngIf="selectedBook" type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="form-control mt-3" style="width: 300px;">
+  <input 
+    *ngIf="selectedBook" 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    placeholder="Search..." 
+    class="form-control mt-3" 
+    style="width: 300px;" />
 
   <!-- Table for Book Data -->
   <table *ngIf="filteredTableData().length > 0 && selectedBook" class="table mt-3" id="test">
@@ -54,7 +75,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of filteredTableData()">
+      <tr *ngFor="let data of filteredTableData()" (click)="onRowClick(data)">
         <td>{{ data.ps }}</td>
         <td>{{ data.booknumber }}</td>
         <td>{{ data.name }}</td>
@@ -62,14 +83,31 @@
         <td>{{ data.identitycard }}</td>
         <td>{{ data.address }}</td>
         <td>{{ data.house }}</td>
-        <td><a [href]="data.pdfUrl" target="_blank">View PDF</a></td>  <!-- PDF link -->
+        <td><a [href]="data.pdfUrl" target="_blank">View PDF</a></td> <!-- PDF link -->
       </tr>
     </tbody>
   </table>
   
-
   <!-- Empty State for No Data Matching Search -->
   <nz-empty *ngIf="filteredTableData().length === 0 && selectedBook" nzDescription="No data matches the search criteria"></nz-empty>
-</div>
 
-<button class="btn btn-primary" (click)="downloadpdf()">Download Pdf Data</button>
+  <!-- Download buttons for PDF and Excel -->
+   <div class="row">
+    <div class="col-12">
+      <div class="row">
+        
+
+        <div class="d-flex justify-content-center mt-3">
+          <button class="btn btn-primary mx-2" (click)="downloadpdf()">Download PDF Data</button>
+          <button class="btn btn-primary mx-2" (click)="downloadexcel()">Download Excel Data</button>
+        </div>
+        
+      </div>
+    </div>
+   </div>
+  <!-- <button class="btn btn-primary" style="margin-left: 40%; margin-top: 10px;" (click)="downloadpdf()">Download PDF Data</button> -->
+  <!-- <button class="btn btn-primary" style="margin-left: 40%; margin-top: 10px;" (click)="downloadexcel()">Download Excel Data</button> -->
+
+  <!-- PDF Viewer -->
+  <pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" [render-text]="true" style="display: block; margin-top: 20px;"></pdf-viewer>
+</div>
