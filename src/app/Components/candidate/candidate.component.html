@@ -1,46 +1,22 @@
-<!-- <div class="container mt-5">
-  <button class="btn btn-primary mb-4" (click)="addCard()">Add Card</button>
-  <div class="row">
-    <div class="col-md-6 mb-4" *ngFor="let card of cards; let i = index">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img [src]="card.image" class="img-fluid rounded-start" [alt]="card.altText">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{ card.title }}</h5>
-              <p class="card-text">
-                Name: {{ card.name }}<br>
-                Father Name: {{ card.fatherName }}<br>
-                Identity Card: {{ card.identityCard }}<br>
-                Phone Number: {{ card.phoneNumber }}<br>
-                Address: {{ card.address }}<br>
-                Total Afraad: {{ card.totalAfraad }}
-              </p>
-              <p class="card-text"><small class="text-body-secondary">Last updated {{ card.lastUpdated }}</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
 <div class="container mt-5">
+  <h3 class="mb-4">Election Candidates (2018 - 2024)</h3>
   <div class="row">
-    <div class="col-md-6 mb-4" *ngFor="let card of cards; let i = index">
+    <div class="col-md-6 mb-4" *ngFor="let candidate of candidates; let i = index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img [src]="card.image" class="img-fluid rounded-start" [alt]="card.altText">
+            <img [src]="candidate.image" class="img-fluid rounded-start" [alt]="candidate.altText">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ card.title }}</h5>
-              <p class="card-text">{{ card.text }}</p>
-              <p class="card-text"><small class="text-body-secondary">{{ card.lastUpdated }}</small></p>
+              <h5 class="card-title">{{ candidate.name }}</h5>
+              <p class="card-text">Year: {{ candidate.year }}</p>
+              <p class="card-text">District: {{ candidate.district }}</p>
+              <p class="card-text">Area: {{ candidate.area }}</p>
+              <p class="card-text">PS: {{ candidate.ps }}</p>
+              <p class="card-text">UC: {{ candidate.uc }}</p>
+              <p class="card-text">NA: {{ candidate.na }}</p>
+              <p class="card-text"><small class="text-body-secondary">{{ candidate.lastUpdated }}</small></p>
               <button class="btn btn-primary" (click)="editCard(i)">Edit</button>
               <button class="btn btn-danger" (click)="deleteCard(i)">Delete</button>
             </div>
@@ -49,35 +25,51 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-success" (click)="addCard()">Add Card</button>
+  <button class="btn btn-success" (click)="addCard()">Add Candidate</button>
 
-  <!-- Add/Edit Card Form -->
-  <div *ngIf="isEditing || isAdding" class="card mt-4">
-    <div class="card-body">
-      <h5 *ngIf="isEditing">Edit Card</h5>
-      <h5 *ngIf="isAdding">Add New Card</h5>
-      <form (ngSubmit)="saveCard()">
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" [(ngModel)]="currentCard.title" name="title" required>
+  <!-- Add/Edit Card Modal -->
+  <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cardModalLabel">{{ isEditing ? 'Edit Card' : 'Add New Card' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="mb-3">
-          <label for="text" class="form-label">Text</label>
-          <textarea class="form-control" id="text" [(ngModel)]="currentCard.text" name="text" required></textarea>
+        <div class="modal-body">
+          <form (ngSubmit)="saveCard()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="currentCard.name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="district" class="form-label">District</label>
+              <input type="text" class="form-control" id="district" [(ngModel)]="currentCard.district" name="district" required>
+            </div>
+            <div class="mb-3">
+              <label for="area" class="form-label">Area</label>
+              <input type="text" class="form-control" id="area" [(ngModel)]="currentCard.area" name="area" required>
+            </div>
+            <div class="mb-3">
+              <label for="uc" class="form-label">UC</label>
+              <input type="text" class="form-control" id="uc" [(ngModel)]="currentCard.uc" name="uc" required>
+            </div>
+            <div class="mb-3">
+              <label for="na" class="form-label">NA</label>
+              <input type="text" class="form-control" id="na" [(ngModel)]="currentCard.na" name="na" required>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Image URL</label>
+              <input type="text" class="form-control" id="image" [(ngModel)]="currentCard.image" name="image" required>
+            </div>
+            <div class="mb-3">
+              <label for="altText" class="form-label">Alt Text</label>
+              <input type="text" class="form-control" id="altText" [(ngModel)]="currentCard.altText" name="altText" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </form>
         </div>
-        <div class="mb-3">
-          <label for="image" class="form-label">Image URL</label>
-          <input type="text" class="form-control" id="image" [(ngModel)]="currentCard.image" name="image" required>
-        </div>
-        <div class="mb-3">
-          <label for="altText" class="form-label">Alt Text</label>
-          <input type="text" class="form-control" id="altText" [(ngModel)]="currentCard.altText" name="altText" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
-
-
